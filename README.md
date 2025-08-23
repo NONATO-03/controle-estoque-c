@@ -1,5 +1,6 @@
 # Gerenciador de Estoque em C
 
+Projeto incompleto em desenvolvimento, minha conta está como flagged pelo github.
 Projeto em linguagem C desenvolvido para conclusão de projeto disciplinar.  
 O sistema implementa um **gerenciador simples de estoque de loja**.
 
