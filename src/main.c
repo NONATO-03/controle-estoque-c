@@ -1,8 +1,8 @@
-#include "opcoesmenu"
-#include "menu"
-#include "variaveis"
+#include "menu.h"
+#include "opcoesmenu.h"
+#include "variaveis.h"
 #include <stdio.h>
-#include <string.h>
+
 // A FAZERES:
 
 //Ordenar por validade (crescente) e listar os itens que vencem nos próximos X dias, sendo X

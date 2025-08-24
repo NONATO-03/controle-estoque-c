@@ -1,25 +1,32 @@
-#ifndef menu
 #define menu
 
+#include "opcoesmenu.h"
+#include "variaveis.h"
 #include <stdio.h>
 #include <string.h>
-#include "variaveis"
 
 //TODAS AS OPÇÕES SELECIONAVÉIS DO MENU PRINCIPAL SERÃO CONDUZIDAS POR AQUI.
 
+//FUNCAO QUE VERIFICA SE O CODIGO DO PRODUTO JA FOI ESCRITO
+int codigoJaExiste(int codigo) {
+    for(int i = 0; i < TotalProdutosCadastrados; i++) {
+        if(produtosCadastraveis[i].codigo == codigo)
+            return 1; // já existe
+    }
+    return 0;
+}
 //FUNÇÃO PARA MOSTRAR TODOS OS PRODUTOS CADASTRADOS PQ EU TAVA COM PREGUIÇA DE ESCREVER ISSO TODA VEZ
-
 void mostrarProdutos() {
     
     for(int i = 0; i < TotalProdutosCadastrados; i++) {
            
         printf("\n");
         printf("===========================================\n");
-        printf(" CÓDIGO DO PRODUTO:      %d\n", produtosCadastraveis[i].codigo);
+        printf(" CODIGO DO PRODUTO:      %d\n", produtosCadastraveis[i].codigo);
         printf(" NOME DO PRODUTO:        %s\n", produtosCadastraveis[i].nomeProduto);
         printf(" CATEGORIA:              %s\n", produtosCadastraveis[i].categoria);
         printf(" QUANTIDADE EM ESTOQUE:  %d unidades\n", produtosCadastraveis[i].qntdEmEstoque);
-        printf(" PREÇO UNITÁRIO:      R$ %.2f\n", produtosCadastraveis[i].precoUnitario);
+        printf(" PRECO UNITARIO:      R$ %.2f\n", produtosCadastraveis[i].precoUnitario);
         printf(" VALIDADE:               %02d/%02d/%04d\n", produtosCadastraveis[i].validade.dia, produtosCadastraveis[i].validade.mes, produtosCadastraveis[i].validade.ano);
         printf("===========================================\n");
         printf("\n");
@@ -37,7 +44,7 @@ void cadastrarProduto() {
     printf("|            CADASTRAR PRODUTO            |\n");
     printf("===========================================\n");
     printf("\n");
-    printf("Digite quantos produtos você irá cadastrar: ");
+    printf("Digite quantos produtos voce vai cadastrar: ");
     scanf("%d", &TotalProdutosCadastrando);
    
     //LOOP DE CADASTRO DE PRODUTOS
@@ -49,9 +56,19 @@ void cadastrarProduto() {
         printf("\n===========================================\n");
         printf("|                 Produto %d               |\n"          , i + 1);
         printf("===========================================\n");
-       
-        printf("\n Digite o código do produto: "); // CADASTRANDO O CÓDIGO DO PRODUTO
-        scanf("%d", &produtosCadastraveis[indice].codigo);
+
+    //PEDE PRO USUARIO DIGITAR O CODIGO E VERIFICA SE JA EXISTE 
+       do {
+    printf("\nDigite o codigo do produto: ");
+    scanf("%d", &produtosCadastraveis[indice].codigo);
+
+    if(codigoJaExiste(produtosCadastraveis[indice].codigo)) {
+        printf("\n");
+        printf("Codigo ja existe! Digite outro.\n");
+        printf("\n");
+    }
+
+    } while(codigoJaExiste(produtosCadastraveis[indice].codigo));
        
         printf("\n Digite o nome do produto: "); // CADASTRANDO O NOME DO PRODUTO
         while(getchar() != '\n'); //LIMPANDO BUFFER
@@ -99,14 +116,14 @@ void cadastrarProduto() {
         printf("===========================================\n");
         printf("\n");
        
-        printf("\n Digite a validade do produto(coloque 0 se o produto não tiver validade)");
+        printf("\n Digite a validade do produto(coloque 0 se o produto nao tiver validade)");
         while (getchar() != '\n'); //LIMPA O BUFFER
         printf("\n");
        
         printf("\n Digite o DIA de vencimento: "); //DIA
         scanf("%d", &produtosCadastraveis[indice].validade.dia);
        
-        printf("\n Digite o MÊS de vencimento: "); //MES
+        printf("\n Digite o MES de vencimento: "); //MES
         scanf("%d", &produtosCadastraveis[indice].validade.mes);
        
         printf("\n Digite o ANO de vencimento: "); // ANO
@@ -115,14 +132,14 @@ void cadastrarProduto() {
         //FINALIZANDO CADASTRO DO PRODUTO(MOSTRA O QUE O USUÁRIO PREENCHEU ANTES DE CONFIRMAR)
        
         printf("\n");
-        printf("Verifique as informações dos produto(s) cadastrado(s): \n");
+        printf("Verifique as informacoes dos produto(s) cadastrado(s): \n");
         printf("\n");
         printf("===========================================\n");
-        printf(" CÓDIGO DO PRODUTO:      %d\n", produtosCadastraveis[indice].codigo);
+        printf(" CODIGO DO PRODUTO:      %d\n", produtosCadastraveis[indice].codigo);
         printf(" NOME DO PRODUTO:        %s\n", produtosCadastraveis[indice].nomeProduto);
         printf(" CATEGORIA:              %s\n", produtosCadastraveis[indice].categoria);
         printf(" QUANTIDADE EM ESTOQUE:  %d unidades\n", produtosCadastraveis[indice].qntdEmEstoque);
-        printf(" PREÇO UNITÁRIO:      R$ %.2f\n", produtosCadastraveis[indice].precoUnitario);
+        printf(" PRECO UNITARIO:      R$ %.2f\n", produtosCadastraveis[indice].precoUnitario);
         printf(" VALIDADE:               %02d/%02d/%04d\n", produtosCadastraveis[indice].validade.dia, produtosCadastraveis[indice].validade.mes, produtosCadastraveis[indice].validade.ano);
         printf("===========================================\n");
         printf("\n");
@@ -183,7 +200,7 @@ void cadastrarProduto() {
        
         mostrarProdutos();
         
-        printf("Você possuí %d produto(s) cadastrados.\n", TotalProdutosCadastrados);
+        printf("Voce possui %d produto(s) cadastrados.\n", TotalProdutosCadastrados);
    };
 
 //OPÇÃO [ 3 ] - Relatório por categoria-------------------------------------------------------------------------------------------------------------------------------------------------------  
@@ -247,11 +264,11 @@ void cadastrarProduto() {
              
             printf("\n");
             printf("===========================================\n");
-            printf("CÓDIGO DO PRODUTO: %d\n", produtosCadastraveis[i].codigo);
+            printf("CODIGO DO PRODUTO: %d\n", produtosCadastraveis[i].codigo);
             printf("NOME DO PRODUTO: %s", produtosCadastraveis[i].nomeProduto);
             printf("CATEGORIA: %s\n", produtosCadastraveis[i].categoria);
             printf("QUANTIDADE EM ESTOQUE: %d\n", produtosCadastraveis[i].qntdEmEstoque);
-            printf("PREÇO UNITÁRIO: R$ %.2f\n", produtosCadastraveis[i].precoUnitario);
+            printf("PRECO UNITARIO: R$ %.2f\n", produtosCadastraveis[i].precoUnitario);
             printf("VALIDADE: %d/%d/%d\n", produtosCadastraveis[i].validade.dia, produtosCadastraveis[i].validade.mes, produtosCadastraveis[i].validade.ano);
             printf("===========================================\n");
             printf("\n");
@@ -284,7 +301,7 @@ void cadastrarProduto() {
 void ordenarPreco() {
     //ESSA FUNÇÃO DEVE LISTAR TODOS OS PRODUTOS A PARTIR DO PREÇO EM ORDEM DECRESCENTE
     
-      // BUBBLE SORT(ESTUDAR)
+      // BUBBLE SORT
     for (int i = 0; i < TotalProdutosCadastrados - 1; i++) {
         for (int j = 0; j < TotalProdutosCadastrados - i - 1; j++) {
             if (produtosCadastraveis[j].precoUnitario < produtosCadastraveis[j + 1].precoUnitario) {
@@ -301,25 +318,178 @@ void ordenarPreco() {
     mostrarProdutos();
 }
 
-//OPÇÃO [ 5 ] - Ordernar por válidade(Bubble sort)(Crescente)-------------------------------------------------------------------------------------------------------------------------------------------------------   
-void ordenarValidade() {
-    
-    //Ordenar por validade (crescente) e listar os itens que vencem nos próximos X dias, sendo X
-   //informado pelo usuário.  
-   
-    //USUARIO ESCOLHE OS PRODUTOS QUE VENCEM NOS PROXIMOS X DIAS
-    
-    int diasEscolhidos;
-    
-     printf("\n");
-     printf("===========================================\n");
-     printf("|      RELATORIO POR DATA DE VALIDADE     |\n");
-     printf("===========================================\n");
-     printf("\n");
-      
-     printf("Defina quantos dias à frente quer ver produtos vencendo: ");
-     
-     //arrumar
+//OPCAO [ 5 ] - ORDENAR POR VALIDADE(BUBBLE SORT)(CRESCENTE)------------------------------------------------------
+//ORDENAR POR VALIDADE (CRESCENTE) E LISTAR OS PRODUTOS QUE VENCEM NOS PROXIMOS X DIAS
+//USUARIO ESCOLHE A DATA DE HOJE E QUANTOS DIAS A FRENTE QUER VER
+//NAO USA TIME.H, CONVERTE DATA EM DIAS
+
+//BISSEXTO?
+int anoBissexto(int ano) {
+    return (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
 }
 
-#endif
+//TRANSFORMA A DATA EM DIAS
+int dataParaDiasPrecisos(ValidadeTipo v) {
+    int diasMeses[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+    int totalDias = 0;
+
+    //SOMA OS DIAS DOS ANOS COMPLETOS
+    for(int a = 0; a < v.ano; a++) {
+        totalDias += anoBissexto(a) ? 366 : 365;
+    }
+
+    //SOMA OS DIAS DOS MESES DO ANO ATUAL
+    for(int m = 0; m < v.mes - 1; m++) {
+        totalDias += diasMeses[m];
+    }
+
+    //+1 SE FOR BISSEXTO E JA PASSOU FEVEREIRO
+    if(v.mes > 2 && anoBissexto(v.ano)) {
+        totalDias++;
+    }
+
+    //SOMA OS DIAS DO MES ATUAL
+    totalDias += v.dia;
+
+    return totalDias;
+}
+
+void ordenarValidade() {
+    int diasEscolhidos;
+
+    ValidadeTipo hoje;
+
+    printf("\n===========================================\n");
+    printf("|      RELATORIO POR DATA DE VALIDADE     |\n");
+    printf("===========================================\n");
+
+    //PERGUNTA DATA DE HOJE
+    printf("Digite a data de hoje:\n");
+    printf("DIA: ");
+    scanf("%d", &hoje.dia); //DIA
+    printf("MES: ");
+    scanf("%d", &hoje.mes); //MES
+    printf("ANO: ");
+    scanf("%d", &hoje.ano); //ANO
+
+    printf("Defina quantos dias a frente deseja ver produtos vencendo: ");
+    scanf("%d", &diasEscolhidos);
+
+    //BUBBLE SORT
+    for(int i = 0; i < TotalProdutosCadastrados - 1; i++) {
+        for(int j = 0; j < TotalProdutosCadastrados - i - 1; j++) {
+            int diasJ = (produtosCadastraveis[j].validade.dia == 0) ? 999999 : dataParaDiasPrecisos(produtosCadastraveis[j].validade);
+            int diasJ1 = (produtosCadastraveis[j+1].validade.dia == 0) ? 999999 : dataParaDiasPrecisos(produtosCadastraveis[j+1].validade);
+
+            if(diasJ > diasJ1) {
+                struct produto temp = produtosCadastraveis[j];
+                produtosCadastraveis[j] = produtosCadastraveis[j+1];
+                produtosCadastraveis[j+1] = temp;
+            }
+        }
+    }
+
+    int hojeDias = dataParaDiasPrecisos(hoje);
+    int encontrou = 0;
+
+    //MOSTRA OS PRODUTOS VENCENDO
+    printf("\nPRODUTOS QUE VENCEM NOS PROXIMOS %d DIAS:\n", diasEscolhidos);
+    for(int i = 0; i < TotalProdutosCadastrados; i++) {
+        int diasProduto = (produtosCadastraveis[i].validade.dia == 0) ? 999999 : dataParaDiasPrecisos(produtosCadastraveis[i].validade);
+
+        if(diasProduto != 999999 && diasProduto <= hojeDias + diasEscolhidos) {
+            encontrou = 1;
+            printf("\n===========================================\n");
+            printf("CODIGO DO PRODUTO: %d\n", produtosCadastraveis[i].codigo);
+            printf("NOME DO PRODUTO: %s", produtosCadastraveis[i].nomeProduto);
+            printf("CATEGORIA: %s\n", produtosCadastraveis[i].categoria);
+            printf("QUANTIDADE EM ESTOQUE: %d\n", produtosCadastraveis[i].qntdEmEstoque);
+            printf("PRECO UNITARIO: R$ %.2f\n", produtosCadastraveis[i].precoUnitario);
+            printf("VALIDADE: %02d/%02d/%04d\n", produtosCadastraveis[i].validade.dia, produtosCadastraveis[i].validade.mes, produtosCadastraveis[i].validade.ano);
+            printf("===========================================\n");
+        }
+    }
+
+    //SE NAO TIVER NENHUM PRODUTO VENCENDO
+    if(!encontrou) {
+        printf("NENHUM PRODUTO VENCENDO NOS PROXIMOS %d DIAS.\n", diasEscolhidos);
+    }
+}
+
+//OPCAO [ 6 ] - BUSCAR PRODUTO POR CODIGO(BUBBLE SORT + BUSCA BINARIA)--------------------------------------------
+void buscarProdutoPorCodigo() {
+    //ORDENA POR CODIGO CRESCENTE
+    for(int i = 0; i < TotalProdutosCadastrados - 1; i++) {
+        for(int j = 0; j < TotalProdutosCadastrados - i - 1; j++) {
+            if(produtosCadastraveis[j].codigo > produtosCadastraveis[j+1].codigo) {
+                struct produto temp = produtosCadastraveis[j];
+                produtosCadastraveis[j] = produtosCadastraveis[j+1];
+                produtosCadastraveis[j+1] = temp;
+            }
+        }
+    }
+    printf("\n");
+    printf("===========================================\n");
+    printf("|        BUSCAR PRODUTO POR CODIGO         |\n");
+    printf("===========================================\n");
+    printf("\n");
+
+    //PERGUNTA O CODIGO DO PRODUTO
+    int codigoProcurado;
+    printf("\nDigite o codigo do produto que deseja buscar: ");
+    printf("\n");
+    scanf("%d", &codigoProcurado);
+
+    //BUSCA BINARIA
+    int esquerda = 0;
+    int direita = TotalProdutosCadastrados - 1;
+    int encontrado = 0;
+
+    while(esquerda <= direita) {
+        int meio = (esquerda + direita) / 2;
+
+        if(produtosCadastraveis[meio].codigo == codigoProcurado) {
+            encontrado = 1;
+
+            printf("\n");
+            printf("PRODUTO ENCONTRADO:\n");
+            printf("===========================================\n");
+            printf("CODIGO DO PRODUTO: %d\n", produtosCadastraveis[meio].codigo);
+            printf("NOME DO PRODUTO: %s", produtosCadastraveis[meio].nomeProduto);
+            printf("CATEGORIA: %s\n", produtosCadastraveis[meio].categoria);
+            printf("QUANTIDADE EM ESTOQUE: %d\n", produtosCadastraveis[meio].qntdEmEstoque);
+            printf("PRECO UNITARIO: R$ %.2f\n", produtosCadastraveis[meio].precoUnitario);
+            printf("VALIDADE: %02d/%02d/%04d\n", produtosCadastraveis[meio].validade.dia, produtosCadastraveis[meio].validade.mes, produtosCadastraveis[meio].validade.ano);
+            printf("===========================================\n");
+            printf("\n");
+
+            //PERGUNTA PRO USUARIO SE ELE DESEJA MUDAR A QNTD OU PRECO DO PRODUTO
+            char opcao;
+            printf("Deseja atualizar a quantidade ou o preco? (S/N): ");
+            while(getchar() != '\n');
+            scanf("%c", &opcao);
+
+            if(opcao == 'S' || opcao == 's') {
+                printf("\n");
+                printf("Digite a nova quantidade: ");
+                scanf("%d", &produtosCadastraveis[meio].qntdEmEstoque);
+                printf("Digite o novo preco: R$ ");
+                scanf("%f", &produtosCadastraveis[meio].precoUnitario);
+                printf("\nAtualizacao realizada com  sucesso!\n");
+                printf("\n");
+            }
+            break;
+        } else if(produtosCadastraveis[meio].codigo < codigoProcurado) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    //SE NAO ENCONTRAR O PRODUTO
+    if(!encontrado) {
+        printf("\n");
+        printf("\nProduto com codigo %d nao encontrado.\n", codigoProcurado);
+        printf("\n");
+    }
+}

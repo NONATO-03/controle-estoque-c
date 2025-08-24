@@ -1,5 +1,5 @@
-#ifndef variaveis
-#define variaveis
+#ifndef VARIAVEIS_H
+#define VARIAVEIS_H
 
 #include <stdio.h>
 #include <string.h>
@@ -20,14 +20,14 @@ struct produto {
     ValidadeTipo validade; // VALIDADE DO PRODUTO
 };
 
-//VARIAVÉIS IMPORTANTES  
-struct produto produtosCadastraveis[10]; // TOTAL DE ESPAÇOS NO VETOR QUE SERÃO USADOS PARA CADASTRAR PRODUTOS.
-int TotalProdutosCadastrando;   // VARIÁVEL QUE GUARDA QUANTOS PRODUTOS VÃO SER CADASTRADOS DE UMA SÓ VEZ.
-int opcaoSelecionada; // USADO EM SWITCH'S.
-int TotalProdutosCadastrados = 0; // QUANTIDADE TOTAL DE PRODUTOS QUE FORAM CADASTRADOS(USADO PARA RASTREAR QUAIS ESPAÇOS NO VETOR FORAM OCUPADOS).
-
-//FUNÇÃO LEGAL
+//FUNÇÕES IMPORTANTES
 //mostrarProdutos(); // MOSTRA TODOS OS PRODUTOS CADASTRADOS
+
+// VARIAVEIS GLOBAIS
+extern struct produto produtosCadastraveis[10]; // TOTAL DE ESPAÇOS NO VETOR QUE SERÃO USADOS PARA CADASTRAR PRODUTOS.
+extern int TotalProdutosCadastrando; // VARIÁVEL QUE GUARDA QUANTOS PRODUTOS VÃO SER CADASTRADOS DE UMA SÓ VEZ.
+extern int opcaoSelecionada; // USADO EM SWITCH'S.
+extern int TotalProdutosCadastrados; // QUANTIDADE TOTAL DE PRODUTOS QUE FORAM CADASTRADOS(USADO PARA RASTREAR QUAIS ESPAÇOS NO VETOR FORAM OCUPADOS).
 
 
 #endif

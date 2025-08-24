@@ -1,6 +1,5 @@
 # Gerenciador de Estoque em C
 
-Projeto incompleto em desenvolvimento, minha conta está como flagged pelo github.
 Projeto em linguagem C desenvolvido para conclusão de projeto disciplinar.  
 O sistema implementa um **gerenciador simples de estoque de loja**.
 
@@ -18,5 +17,7 @@ O sistema implementa um **gerenciador simples de estoque de loja**.
 No terminal, execute:
 
 ```bash
-gcc main.c -o estoque
-./estoque
+gcc main.c menu.c opcoesmenu.c variaveis.c -o controle-estoque.exe
+
+./controle-estoque.exe
+
